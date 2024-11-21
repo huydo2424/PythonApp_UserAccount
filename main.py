@@ -37,7 +37,8 @@ class MyApp(mainW):  # Sử dụng alias QMainWindow là mainW
             self.show_message("Lỗi", "Vui lòng điền đầy đủ thông tin!")
             return
         if repass != password:
-            self.show_message("Bạn cần nhập lại đúng mật khẩu!")
+            self.show_message("Lỗi", "Bạn cần nhập lại đúng mật khẩu!")
+            return
 
         # Đọc dữ liệu từ file users.json (nếu có)
         users_data = self.load_users_data()
