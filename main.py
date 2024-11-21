@@ -1,7 +1,7 @@
 import sys
 import json
 from PyQt6 import uic
-from PyQt6.QtWidgets import QApplication as app, QMainWindow as mainW, QStackedWidget as stack, QMessageBox
+from PyQt6.QtWidgets import QLineEdit, QApplication as app, QMainWindow as mainW, QStackedWidget as stack, QMessageBox
 
 class MyApp(mainW):  # Sử dụng alias QMainWindow là mainW
     def __init__(self):
@@ -11,6 +11,11 @@ class MyApp(mainW):  # Sử dụng alias QMainWindow là mainW
         self.ui_register = uic.loadUi('register.ui')  # File UI của form đăng ký
         self.ui_login = uic.loadUi('login.ui')        # File UI của form đăng nhập
 
+        # Thiết lập QLineEdit cho các ô nhập mật khẩu
+        self.ui_register.register_ip_pass.setEchoMode(QLineEdit.EchoMode.Password)
+        self.ui_register.register_ip_repass.setEchoMode(QLineEdit.EchoMode.Password)
+        self.ui_login.login_ip_pass.setEchoMode(QLineEdit.EchoMode.Password)
+        
         # Kết nối sự kiện khi nhấn nút Register
         self.ui_register.btnRegister.clicked.connect(self.register_user)
         
