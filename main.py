@@ -1,8 +1,8 @@
 import sys
 import json
 from PyQt6 import uic
-from PyQt6.QtWidgets import QLineEdit, QApplication as app, QMainWindow as mainW, QStackedWidget as stack, QMessageBox
-
+from PyQt6.QtWidgets import QApplication as app, QMainWindow as mainW, QStackedWidget as stack, QMessageBox
+from PyQt6.QtWidgets import QLineEdit
 class MyApp(mainW):  # Sử dụng alias QMainWindow là mainW
     def __init__(self):
         super().__init__()
@@ -10,7 +10,7 @@ class MyApp(mainW):  # Sử dụng alias QMainWindow là mainW
         # Tải giao diện từ file .ui (register.ui và login.ui)
         self.ui_register = uic.loadUi('register.ui')  # File UI của form đăng ký
         self.ui_login = uic.loadUi('login.ui')        # File UI của form đăng nhập
-
+        
         # Thiết lập QLineEdit cho các ô nhập mật khẩu
         self.ui_register.register_ip_pass.setEchoMode(QLineEdit.EchoMode.Password)
         self.ui_register.register_ip_repass.setEchoMode(QLineEdit.EchoMode.Password)
@@ -57,11 +57,11 @@ class MyApp(mainW):  # Sử dụng alias QMainWindow là mainW
         users_data[username] = {"email": username, "password": password}
 
         # Lưu lại dữ liệu vào file JSON
-        self.save_users_data(users_data)
-        
+        self.save_users_data(users_data)       
         self.show_message("Thành công", "Đăng ký thành công!")
         # Chuyển đến giao diện đăng nhập
-        self.stacked_widget.setCurrentIndex(1)
+        self.stacked_widget.setCurrentWidget(self.ui_login)
+
 
     def login_user(self):
         """ Hàm kiểm tra thông tin đăng nhập từ file JSON """
@@ -74,9 +74,8 @@ class MyApp(mainW):  # Sử dụng alias QMainWindow là mainW
         # Kiểm tra thông tin đăng nhập
         if username not in users_data or users_data[username]['password'] != password:
             self.show_message("Lỗi", "Thông tin đăng nhập không chính xác!")
-            return
-        
-        self.show_message("Thành công", "Đăng nhập thành công!")
+            return        
+        self.show_message("Thành công", "Đăng nhập thành công!") 
         # Sau khi đăng nhập thành công, có thể chuyển đến trang chính của ứng dụng
 
     def load_users_data(self):
@@ -90,7 +89,7 @@ class MyApp(mainW):  # Sử dụng alias QMainWindow là mainW
     def save_users_data(self, data):
         """ Hàm lưu dữ liệu người dùng vào file users.json """
         with open("users.json", "w") as file:
-            json.dump(data, file, indent=4)
+            json.dump(data, file, indent=4) 
 
     def show_message(self, title, message):
         """ Hiển thị thông báo cho người dùng """
@@ -98,6 +97,7 @@ class MyApp(mainW):  # Sử dụng alias QMainWindow là mainW
         msg.setWindowTitle(title)
         msg.setText(message)
         msg.exec()
+
 
 if __name__ == '__main__':
     # Khởi tạo ứng dụng với alias app
